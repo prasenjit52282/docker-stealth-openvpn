@@ -6,3 +6,6 @@ tmp/
 ovpn-data-store
 clients
 stunnel.conf
+cert.pem
+auth/*.key
+auth/*.pem

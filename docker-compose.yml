@@ -9,14 +9,18 @@ services:
     restart: always
 
   stunnel:
-    image: shahinism/stunnel
+    image: dweomer/stunnel
     ports:
       - "993:4911"
     links:
       - openvpn
+    volumes:
+      - ./auth/stunnel.pem:/etc/stunnel/stunnel.pem:ro
+      - ./auth/stunnel.key:/etc/stunnel/stunnel.key:ro
     environment:
-      - CLIENT=no
-      - SERVICE=openvpn
-      - ACCEPT=0.0.0.0:4911
-      - CONNECT=openvpn:1194
+      - STUNNEL_CLIENT=no
+      - STUNNEL_SERVICE=openvpn
+      - STUNNEL_ACCEPT=0.0.0.0:4911
+      - STUNNEL_CONNECT=openvpn:1194
+      - STUNNEL_VERIFY=3
     restart: always
