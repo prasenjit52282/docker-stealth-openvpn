@@ -37,6 +37,7 @@ add_user:
 
 rm_user:
 	bin/revoke.sh
+	docker-compose restart openvpn
 
 config_ufw_firewall:
 	ufw allow ssh
