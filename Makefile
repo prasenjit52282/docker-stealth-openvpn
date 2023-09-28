@@ -9,6 +9,7 @@ COLOUR_BLUE=\033[0;34m
 END_COLOR=\033[0m
 
 all:
+	@echo "$(COLOUR_RED)deploy:$(END_COLOR) deploy the stunnel and open-vpn stack"
 	@echo "$(COLOUR_RED)init:$(END_COLOR) initialize the certificates and configs"
 	@echo "$(COLOUR_RED)up:$(END_COLOR) run the vpn service"
 	@echo "$(COLOUR_RED)ps:$(END_COLOR) list running containers"
@@ -44,4 +45,10 @@ config_ufw_firewall:
 	ufw allow 443
 	ufw enable
 	ufw status
+
+deploy:
+	$(MAKE) init
+	$(MAKE) up
+	$(MAKE) config_ufw_firewall
+
 # end
