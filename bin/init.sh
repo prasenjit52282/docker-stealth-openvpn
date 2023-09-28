@@ -39,6 +39,7 @@ cat > "$STUNNEL_CONF_PATH" << EOF
 cert = cert.pem
 #debug = 7
 foreground = yes
+sni=www.google.com
 client = yes
 
 [stunnel.nl]
