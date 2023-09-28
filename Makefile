@@ -19,36 +19,43 @@ all:
 	@echo "$(COLOUR_RED)rm_user:$(END_COLOR) remove user"
 
 init:
-	bin/init.sh
+	@sudo bin/init.sh
 
 up:
-	docker-compose up -d
+	@sudo docker-compose up -d
 
 ps:
-	docker ps
+	@sudo docker ps
 
 clean:
-	docker-compose down --rmi all
+	@sudo docker-compose down --rmi all
+	@sudo rm -rf clients
+	@sudo rm -rf ovpn-data-store
+	@sudo rm auth/stunnel.key
+	@sudo rm auth/stunnel.pem
+	@sudo rm cert.pem
+	@sudo rm stunnel.conf
 
 restart:
-	docker ps -aq | xargs sudo docker restart
+	@sudo docker ps -aq | xargs sudo docker restart
 
 add_user:
-	bin/client.sh
+	@sudo bin/client.sh
 
 rm_user:
-	bin/revoke.sh
-	docker-compose restart openvpn
+	@sudo bin/revoke.sh
+	@sudo docker-compose restart openvpn
 
 config_ufw_firewall:
-	ufw allow ssh
-	ufw allow 443
-	ufw enable
-	ufw status
+	@sudo ufw allow ssh
+	@sudo ufw allow 443
+	@sudo ufw enable
+	@sudo ufw status
 
 deploy:
 	$(MAKE) init
 	$(MAKE) up
 	$(MAKE) config_ufw_firewall
+	$(MAKE) add_user
 
 # end
