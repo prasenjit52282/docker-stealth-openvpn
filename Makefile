@@ -41,7 +41,7 @@ rm_user:
 
 config_ufw_firewall:
 	ufw allow ssh
-	ufw allow 993
+	ufw allow 443
 	ufw enable
 	ufw status
 # end

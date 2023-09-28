@@ -43,7 +43,7 @@ client = yes
 
 [stunnel.nl]
 accept = 127.0.0.1:41194
-connect = ${ADDRESS}:993
+connect = ${ADDRESS}:443
 EOF
 
 success "+ Stunnel config is available at ${STUNNEL_CONF_PATH}"

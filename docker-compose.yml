@@ -11,7 +11,7 @@ services:
   stunnel:
     image: dweomer/stunnel
     ports:
-      - "993:4911"
+      - "443:4911"
     links:
       - openvpn
     volumes:

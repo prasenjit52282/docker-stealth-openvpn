@@ -21,7 +21,7 @@ someone reports the server's IP address).
 That's where this setup is coming from. Basically what it does is:
 
 - Utilizes [Stunnel](https://www.stunnel.org/) to encrypt the traffic.
-- Use port 993 (IMAP TLS) to pass the traffic.
+- Use port 443 (SSL TLS) to pass the traffic.
 - Use OpenVPN as the VPN solution.
 
 To provide Stunnel access securely, it relies on another
@@ -41,14 +41,14 @@ First make sure:
 3. Make sure
    [UFW](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-20-04)
    is enabled (to ensure the security of your server).
-4. Make sure port 993 is accessible through any other gateway configured
+4. Make sure port 443 is accessible through any other gateway configured
    for your server. This is the only port that needs to be open. 
 
 Then clone the project, and run:
 
 ```sh
 make init  # To initialize the configuration
-make start # To start the server
+make up # To start the server
 ```
 
 The server should be up and running in a few minutes.
@@ -58,7 +58,7 @@ The server should be up and running in a few minutes.
 You can use:
 
 ```sh
-make new_user
+make add_user
 ```
 
 To create a new user for the server. After user creation, you need to
