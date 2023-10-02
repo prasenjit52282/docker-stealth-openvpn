@@ -1,7 +1,7 @@
 # Docker Stealth OpenVPN
 
 <p align="center">
-  <img src="./assets/stealth_openvpn.png" alt="the architecture of the setup">
+  <img src="./assets/artech.png" alt="the architecture of the setup">
 </p>
 
 This is a project I was using personally to get access to the Internet
