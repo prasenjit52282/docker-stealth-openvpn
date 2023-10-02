@@ -2,6 +2,8 @@ version: "3.9"
 services:
   openvpn:
     image: kylemanna/openvpn
+    ports:
+      - "1194:1194"
     volumes:
       - ./ovpn-data-store:/etc/openvpn
     cap_add:
