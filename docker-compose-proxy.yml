@@ -73,6 +73,8 @@ services:
       network1:
         aliases:
           - forward
+    depends_on:
+      - vpnclient
     restart: always
 
 networks:
