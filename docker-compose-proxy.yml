@@ -1,0 +1,80 @@
+version: "3.9"
+services:
+  stunnel:
+    build: ./tunnel
+    image: mystunnel
+    volumes:
+      - ./tunnel/stunnel.pem:/etc/stunnel/stunnel.pem:ro
+      - ./tunnel/stunnel.key:/etc/stunnel/stunnel.key:ro
+    environment:
+      - STUNNEL_CLIENT=yes
+      - STUNNEL_SERVICE=mystunnel
+      - STUNNEL_ACCEPT=0.0.0.0:41194
+      - STUNNEL_CONNECT=${SERVER_IP}:${STUNNEL_PORT}
+      - STUNNEL_VERIFY=3
+    networks:
+      network1:
+        aliases:
+          - mystunnel
+    restart: always
+
+  vpnclient:
+    build: ./vclient
+    image: vpnclient
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    volumes:
+      - ./vclient/config:/config
+    environment:
+      - CONFIG_FILE=sClient.ovpn
+    depends_on:
+      - stunnel
+    networks:
+      network1:
+        aliases:
+          - vpnclient
+    restart: always
+
+  sockproxy:
+    image: serjs/go-socks5-proxy
+    network_mode: 'service:vpnclient' #uses 1080 port internally
+    depends_on:
+      - vpnclient
+    restart: always
+
+  openssh-server:
+    image: lscr.io/linuxserver/openssh-server:latest
+    container_name: openssh-server
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Kolkata
+      - PASSWORD_ACCESS=true
+      - USER_PASSWORD=${SSH_PASS}
+      - USER_NAME=${SSH_USER}
+    network_mode: 'service:vpnclient' #uses 2222 port internally
+    depends_on:
+      - vpnclient
+    restart: always
+
+  forward:
+    build: ./fwd
+    image: forward
+    ports:
+      - "${EXTERNAL_SOCKS5_PORT}:${EXTERNAL_SOCKS5_PORT}"
+      - "${EXTERNAL_SSH_PORT}:${EXTERNAL_SSH_PORT}"
+    environment:
+      - EXTERNAL_SOCKS5_PORT=${EXTERNAL_SOCKS5_PORT}
+      - EXTERNAL_SSH_PORT=${EXTERNAL_SSH_PORT}
+      - LOG=${FORWARD_LOG}
+    networks:
+      network1:
+        aliases:
+          - forward
+    restart: always
+
+networks:
+  network1:
+    name: mynet

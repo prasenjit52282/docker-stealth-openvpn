@@ -1,0 +1,29 @@
+cert = ${STUNNEL_CRT}
+key = ${STUNNEL_KEY}
+
+setuid = ${STUNNEL_UID}
+setgid = ${STUNNEL_GID}
+
+pid = /var/run/stunnel/stunnel.pid
+
+socket = l:TCP_NODELAY=1
+socket = r:TCP_NODELAY=1
+
+CAfile = ${STUNNEL_CAFILE}
+verifyChain = ${STUNNEL_VERIFY_CHAIN}
+sslVersionMin = TLSv1.2
+
+debug = ${STUNNEL_DEBUG}
+output = /var/log/stunnel/stunnel.log
+foreground = yes
+sni=www.google.com
+client = ${STUNNEL_CLIENT}
+
+[${STUNNEL_SERVICE}]
+accept = ${STUNNEL_ACCEPT}
+connect = ${STUNNEL_CONNECT}
+delay = ${STUNNEL_DELAY}
+verify = ${STUNNEL_VERIFY}
+${STUNNEL_PROTOCOL_CONFIG_LINE}
+${STUNNEL_CIPHERS_CONFIG_LINE}
+${STUNNEL_PSKSECRETS_CONFIG_LINE}

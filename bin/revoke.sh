@@ -2,7 +2,7 @@
 
 set -e
 
-CLIENTS_DIR="./clients"
+CLIENTS_DIR="./vclient/config"
 printf "Username: "
 read -r USERNAME
 
@@ -11,6 +11,6 @@ if [ "$USERNAME" = "" ]; then
     exit 1
 fi
 
-docker-compose run --rm openvpn easyrsa revoke ${USERNAME}
-docker-compose run --rm openvpn easyrsa gen-crl
+docker-compose -f docker-compose-server.yml run --rm openvpn easyrsa revoke ${USERNAME}
+docker-compose -f docker-compose-server.yml run --rm openvpn easyrsa gen-crl
 rm -rfv "$CLIENTS_DIR/$USERNAME".ovpn
