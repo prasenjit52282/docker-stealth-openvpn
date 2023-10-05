@@ -26,11 +26,11 @@ def forward(source_port, target_host, target_port):
         return
 
     server.listen(5)
-    if args.log:print(f"Port forwarding on port {source_port} to {target_host}:{target_port}")
+    if log:print(f"Port forwarding on port {source_port} to {target_host}:{target_port}")
 
     while True:
         client_socket, addr = server.accept()
-        if args.log:print(f"Accepted connection from {addr[0]}:{addr[1]}")
+        if log:print(f"Accepted connection from {addr[0]}:{addr[1]}")
         target = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         target.connect((target_host, target_port))
         forward_thread1 = threading.Thread(target=forward_data, args=(client_socket, target))
