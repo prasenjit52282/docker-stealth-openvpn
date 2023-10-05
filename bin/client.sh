@@ -27,7 +27,7 @@ function create_user {
 function download_user {
     info "+ Downloading user client..."
     docker-compose -f docker-compose-server.yml run --rm openvpn ovpn_getclient "$USERNAME" > "$CONFIG_PATH"
-    sed -i "s/^remote .*\r$/remote mystunnel 41194 tcp\r/g" "$CONFIG_PATH"
+    sed -i "/remote-/c\remote mystunnel 41194 tcp" "$CONFIG_PATH"
     success "+ User profile downloaded at $CONFIG_PATH, copy it in proxy sClient.ovpn file"
 }
 

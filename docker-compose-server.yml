@@ -17,8 +17,8 @@ services:
     links:
       - openvpn
     volumes:
-      - ./auth/stunnel.pem:/etc/stunnel/stunnel.pem:ro
-      - ./auth/stunnel.key:/etc/stunnel/stunnel.key:ro
+      - ./tunnel/stunnel.pem:/etc/stunnel/stunnel.pem:ro
+      - ./tunnel/stunnel.key:/etc/stunnel/stunnel.key:ro
     environment:
       - STUNNEL_CLIENT=no
       - STUNNEL_SERVICE=openvpn
