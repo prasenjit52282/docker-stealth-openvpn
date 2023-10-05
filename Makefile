@@ -22,6 +22,9 @@ init_server:
 up_server:
 	@sudo docker-compose -f docker-compose-server.yml --env-file .env up -d
 
+rebuild_server:
+	@sudo docker-compose -f docker-compose-server.yml --env-file .env up -d --build
+
 clean_server: #to clear server just run this
 	@sudo docker-compose -f docker-compose-server.yml down --rmi all
 	@sudo rm -rf ovpn-data-store
@@ -55,6 +58,9 @@ deploy_server: #to deploy server just run this
 #----------------Proxy--------------------#
 up_proxy:
 	@sudo docker-compose -f docker-compose-proxy.yml --env-file .env up -d
+
+rebuild_proxy:
+	@sudo docker-compose -f docker-compose-proxy.yml --env-file .env up -d --build
 
 clean_proxy:
 	@sudo docker-compose -f docker-compose-proxy.yml down --rmi all
