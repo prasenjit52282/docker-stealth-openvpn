@@ -3,7 +3,7 @@ services:
   openvpn:
     image: kylemanna/openvpn
     ports:
-      - "1194:1194"
+      - "${INT_OPEN_VPN_PORT}:1194"
     volumes:
       - ./ovpn-data-store:/etc/openvpn
     cap_add:
@@ -13,12 +13,12 @@ services:
   stunnel:
     image: dweomer/stunnel
     ports:
-      - "443:4911"
+      - "${STUNNEL_PORT}:4911"
     links:
       - openvpn
     volumes:
-      - ./auth/stunnel.pem:/etc/stunnel/stunnel.pem:ro
-      - ./auth/stunnel.key:/etc/stunnel/stunnel.key:ro
+      - ./tunnel/stunnel.pem:/etc/stunnel/stunnel.pem:ro
+      - ./tunnel/stunnel.key:/etc/stunnel/stunnel.key:ro
     environment:
       - STUNNEL_CLIENT=no
       - STUNNEL_SERVICE=openvpn

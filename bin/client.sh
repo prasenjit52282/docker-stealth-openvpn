@@ -8,7 +8,7 @@ set -e
 printf "Username: "
 read -r USERNAME
 
-CONFIG_DIR="./clients"
+CONFIG_DIR="./vclient/config"
 CONFIG_PATH="${CONFIG_DIR}/${USERNAME}".ovpn
 
 if [ "$USERNAME" = "" ]; then
@@ -20,15 +20,15 @@ mkdir -p $CONFIG_DIR
 
 function create_user {
     info "+ Start user generation..."
-    docker-compose run --rm openvpn easyrsa build-client-full "$USERNAME" nopass
+    docker-compose -f docker-compose-server.yml run --rm openvpn easyrsa build-client-full "$USERNAME" nopass
     success "+ User generation complet"
 }
 
 function download_user {
     info "+ Downloading user client..."
-    docker-compose run --rm openvpn ovpn_getclient "$USERNAME" > "$CONFIG_PATH"
-    sed -i "s/^remote .*\r$/remote localhost 41194 tcp\r/g" "$CONFIG_PATH"
-    success "+ User profile downloaded at $CONFIG_PATH"
+    docker-compose -f docker-compose-server.yml run --rm openvpn ovpn_getclient "$USERNAME" > "$CONFIG_PATH"
+    sed -i "/remote /c\remote mystunnel 41194 tcp" "$CONFIG_PATH"
+    success "+ User profile downloaded at $CONFIG_PATH, copy it in proxy sClient.ovpn file"
 }
 
 case $1 in
