@@ -1,7 +1,7 @@
 # Docker Stealth OpenVPN
 
 <p align="center">
-      <img src="./assets/artech.png" width="90%"/><br><strong>Fig.1: Architecture</strong>
+      <img src="./assets/artech.png" width="70%"/><br><strong>Fig.1: Architecture</strong>
 </p>
 
 # Design
