@@ -80,4 +80,4 @@ The proxy servers (x.x.x.x) exposes the socks ports in 2000. Set server IP and s
 
 
 # Contact Me
-This is a fun project to enable open internet in the IIT Kgp campus. I hope it will help you to setup you own proxies within the college network. For questions and general feedback, contact [Prasenjit Karmakar](https://www.linkedin.com/in/prasenjit52282).
+This is a fun project to enable open internet in an restricted organisation. I hope it will help you to setup your own proxies within any monitored network. For questions and general feedback, contact [Prasenjit Karmakar](https://www.linkedin.com/in/prasenjit52282).
