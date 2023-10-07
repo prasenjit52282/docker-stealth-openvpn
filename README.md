@@ -44,7 +44,7 @@ cd docker-stealth-openvpn
 sudo make install_deps
 sudo make deploy_proxy
 ```
-Before running above commands, paste `tunnel/stunnel.key`, `tunnel/stunnel.pem`, and `USERNAME[sClient].ovpn` file contents to the local proxy.
+Before running above commands, update the `SERVER_IP` in `.env` file and paste `tunnel/stunnel.key`, `tunnel/stunnel.pem`, and `USERNAME[sClient].ovpn` file contents to the local proxy.
 
 ### Uninstallation
     VPN Server
