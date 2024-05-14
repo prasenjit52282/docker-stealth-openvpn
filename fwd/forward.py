@@ -15,7 +15,7 @@ elif args.mode=='ssh':
     forward_port=2222 #internal port of ssh container
 elif args.mode=='wsock':
     public_port=int(os.environ['EXTERNAL_WSOCKS5_PORT'])
-    forward_port=1100
+    forward_port=1080
 
 log=True if os.environ['LOG'] == 'true' else False
 
