@@ -13,6 +13,9 @@ if args.mode=='socks':
 elif args.mode=='ssh':
     public_port=int(os.environ['EXTERNAL_SSH_PORT'])
     forward_port=2222 #internal port of ssh container
+elif args.mode=='wsock':
+    public_port=int(os.environ['EXTERNAL_WSOCKS5_PORT'])
+    forward_port=1080
 
 log=True if os.environ['LOG'] == 'true' else False
 
@@ -49,5 +52,9 @@ def forward_data(source, target):
     target.close()
 
 if __name__ == '__main__':
-    forward(public_port, 'vpnclient', forward_port)
-    #forwarding to vpnclient as both socks5 and ssh is in network_mode
+    if args.mode=='wsock':
+        forward(public_port, 'wsockproxy', forward_port)
+        #in case of normal proxy just forward the traffic to the wsock container
+    else:
+        forward(public_port, 'vpnclient', forward_port)
+        #forwarding to vpnclient as both socks5 and ssh is in network_mode

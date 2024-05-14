@@ -44,6 +44,10 @@ services:
       - vpnclient
     restart: always
 
+  wsockproxy: #just normal proxy for running whatsapp from lab network
+    image: serjs/go-socks5-proxy
+    restart: always
+
   openssh-server:
     image: lscr.io/linuxserver/openssh-server:latest
     container_name: openssh-server
@@ -65,9 +69,11 @@ services:
     ports:
       - "${EXTERNAL_SOCKS5_PORT}:${EXTERNAL_SOCKS5_PORT}"
       - "${EXTERNAL_SSH_PORT}:${EXTERNAL_SSH_PORT}"
+      - "${EXTERNAL_WSOCKS5_PORT}:${EXTERNAL_WSOCKS5_PORT}"
     environment:
       - EXTERNAL_SOCKS5_PORT=${EXTERNAL_SOCKS5_PORT}
       - EXTERNAL_SSH_PORT=${EXTERNAL_SSH_PORT}
+      - EXTERNAL_WSOCKS5_PORT=${EXTERNAL_WSOCKS5_PORT}
       - LOG=${FORWARD_LOG}
     networks:
       network1:
