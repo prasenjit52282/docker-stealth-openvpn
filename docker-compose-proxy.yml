@@ -46,6 +46,8 @@ services:
 
   wsockproxy: #just normal proxy for running whatsapp from lab network
     image: serjs/go-socks5-proxy
+    environment:
+      - PROXY_PORT=1100
     restart: always
 
   openssh-server:
